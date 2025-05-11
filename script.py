@@ -20,15 +20,12 @@ for byte_idx in range(num_bytes):
             headers = next(reader)
             data = [row for row in reader]
         
-        # For each of the top 3 correlations
         for rank in range(min(top_n, len(data))):
             if rank < len(data):
-                # Get data for this rank
                 row = data[rank]
                 key_byte = int(row[1])
                 correlation = float(row[2])
                 
-                # Parse data points (hamming distances and power values)
                 data_str = row[3]
                 data_points = data_str.split('|')
                 
@@ -50,7 +47,6 @@ for byte_idx in range(num_bytes):
                 
                 marker_size = max(1, min(10, 9000 / len(hamming_distances)))
                 
-                # Create scatter plot with alpha transparency to show density
                 plt.scatter(hamming_distances, power_values, s=marker_size, alpha=0.5)
                 
 
@@ -61,19 +57,16 @@ for byte_idx in range(num_bytes):
                 plt.ylabel("Power Consumption")
                 plt.grid(True, alpha=0.3)
                 
-                # correlation coefficient annotation
                 plt.annotate(f"r = {correlation:.4f}", 
                             xy=(0.05, 0.95), 
                             xycoords='axes fraction',
                             bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))
                 
-                # point count annotation
                 plt.annotate(f"Points: {len(hamming_distances)}", 
                             xy=(0.05, 0.89), 
                             xycoords='axes fraction',
                             bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))
                 
-                # Save the plot
                 plot_filename = f"plots/byte_{byte_idx}_rank_{rank+1}.png"
                 plt.savefig(plot_filename, dpi=300)
                 plt.close()
