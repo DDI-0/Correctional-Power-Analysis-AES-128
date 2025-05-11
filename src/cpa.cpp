@@ -24,7 +24,7 @@
 #include <string>
 #include <vector>
 #include <omp.h>
-#include <fstream>  // Added for file output
+#include <fstream>  
 
 #include "../common/aes-op.hpp"
 #include "../common/csv_read.hpp"
@@ -36,7 +36,7 @@ void cpa::cpa(std::string data_path, std::string ct_path)
 {
     const int num_bytes = 16;
     const int num_keys = 256;    
-    const int top_n = 3; // Number of top correlations to store
+    const int top_n = 3; 
     
     int pre_row;
     int pre_col;
